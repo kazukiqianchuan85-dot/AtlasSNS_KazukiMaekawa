@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+//新規登録のコントローラー
 class RegisteredUserController extends Controller
 {
     /**
@@ -30,6 +31,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //バリデーション設定
+        $request->validate([
+            'username' => ['required', 'string', 'min:2', 'max:12'],
+            'email' => ['required', 'string', 'email', 'min:5', 'max:40', 'unique:users,email'],
+            'password' => ['required','string','min:8','max:20','regex:/^[a-zA-Z0-9]+$/','confirmed'],
+        ]);
+
         User::create([
             'username' => $request->username,
             'email' => $request->email,
