@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     //ログイン
-    Route::get('login', [AuthenticatedSessionController::class, 'create']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
     //新規登録
-    Route::get('register', [RegisteredUserController::class, 'create']);
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
     //登録完了画面
-    Route::get('added', [RegisteredUserController::class, 'added']);
-    Route::post('added', [RegisteredUserController::class, 'added']);
+    Route::get('/added', [RegisteredUserController::class, 'added'])->name('added');
+    Route::post('/added', [RegisteredUserController::class, 'added'])->name('added');
 
 });

@@ -38,17 +38,20 @@ class RegisteredUserController extends Controller
             'password' => ['required','string','min:8','max:20','regex:/^[a-zA-Z0-9]+$/','confirmed'],
         ]);
 
-        User::create([
+        // ユーザー作成
+        $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('added');
+        // 登録完了ページへリダイレクト
+        return redirect()->route('added')->with('username', $user->username);
     }
 
     public function added(): View
     {
-        return view('auth.added');
+        $username = session('username');
+        return view('auth.added', compact('username'));
     }
 }
