@@ -13,15 +13,7 @@
                     <ul>
                         <li><a href="{{ url('/top') }}">ホーム</a></li>
                         <li><a href="{{ url('/profile') }}">プロフィール編集</a></li>
-                        <li>
-                            <a href="{{ url('/logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                ログアウト
-                            </a>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
+                        <li><a href="{{ url('/logout') }}">ログアウト</a></li>
                     </ul>
                 </div>
             </div>

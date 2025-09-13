@@ -37,3 +37,8 @@ Route::middleware('auth')->group(function () {
     // フォロワーリストページ
     Route::get('follower-list', [PostsController::class, 'index']);
 });
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->route('login'); // ログインページへ
+});
