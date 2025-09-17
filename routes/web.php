@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostsController;
-use App\Http\Controllers\FollowController;
+use App\Http\Controllers\FollowsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,10 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [UsersController::class, 'index'])->name('user.search');
 
     // フォロー
-    Route::post('/users/{id}/follow', [FollowController::class, 'store'])->name('follow');
+    Route::post('/follow/{id}', [FollowsController::class, 'store'])->name('follow');
 
     // フォロー解除
-    Route::post('/users/{id}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
+    Route::post('/unfollow/{id}', [FollowsController::class, 'destroy'])->name('unfollow');
 
     // フォローリストページ
     Route::get('follow-list', [PostsController::class, 'index']);

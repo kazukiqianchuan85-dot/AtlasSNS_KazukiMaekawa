@@ -22,7 +22,7 @@ class FollowsController extends Controller
         $user = User::findOrFail($id);
         Auth::user()->followings()->attach($user->id);
 
-        return back();
+        return redirect()->route('user.search')->withInput(); // 検索画面に戻る
     }
 
     // フォロー解除
@@ -31,6 +31,6 @@ class FollowsController extends Controller
         $user = User::findOrFail($id);
         Auth::user()->followings()->detach($user->id);
 
-        return back();
+        return redirect()->route('user.search')->withInput(); // 検索画面に戻る
     }
 }
