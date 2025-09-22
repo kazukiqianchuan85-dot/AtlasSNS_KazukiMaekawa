@@ -4,16 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class FollowsController extends Controller
 {
-    //
+    //フォローリストページ
     public function followList(){
-        return view('follows.followList');
+        $user = Auth::user();
+
+        // 自分がフォローしているユーザー
+        $followings = $user->followings()->get();
+
+        // フォローしているユーザーの投稿を新しい順で取得
+        $posts = Post::whereIn('user_id', $followings->pluck('id'))
+                    ->with('user')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        return view('follows.followList', compact('followings', 'posts'));
     }
+
     public function followerList(){
-        return view('follows.followerList');
+        $user = auth()->user();
+
+        // 自分をフォローしているユーザー（フォロワー）を取得
+        $followers = $user->followers;
+
+        // フォロワーの投稿を新しい順で取得
+        $posts = Post::whereIn('user_id', $followers->pluck('id'))
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('follows.followerList', compact('followers', 'posts'));
+
     }
 
     // フォローする

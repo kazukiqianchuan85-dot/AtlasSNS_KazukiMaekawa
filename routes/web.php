@@ -26,8 +26,11 @@ Route::middleware('auth')->group(function () {
     // トップページ
     Route::get('top', [PostsController::class, 'index']);
 
-    // プロフィール編集ページ
-    Route::get('profile', [ProfileController::class, 'profile']);
+    // プロフィール編集ページ（自分用）
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile.edit');
+
+    // プロフィール表示ページ（他人用）
+    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
     // ユーザー検索ページ
     Route::get('/search', [UsersController::class, 'index'])->name('user.search');
@@ -39,10 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/unfollow/{id}', [FollowsController::class, 'destroy'])->name('unfollow');
 
     // フォローリストページ
-    Route::get('follow-list', [PostsController::class, 'index']);
+    Route::get('follow-list', [FollowsController::class, 'followList'])->name('follow.list');
 
     // フォロワーリストページ
-    Route::get('follower-list', [PostsController::class, 'index']);
+    Route::get('follower-list', [FollowsController::class, 'followerList']);
 
     //ポストページ
     Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
