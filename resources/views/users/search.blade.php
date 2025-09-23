@@ -35,12 +35,18 @@
                     @if(auth()->user()->followings->contains($user->id))
                         <form action="{{ route('unfollow', $user->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-4 py-1 bg-red-500 text-white rounded">フォロー解除</button>
+                            <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
+                            <button type="submit" class="px-4 py-1 bg-red-500 text-white rounded">
+                                フォロー解除
+                            </button>
                         </form>
                     @else
                         <form action="{{ route('follow', $user->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-4 py-1 bg-blue-500 text-white rounded">フォローする</button>
+                            <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
+                            <button type="submit" class="px-4 py-1 bg-blue-500 text-white rounded">
+                                フォローする
+                            </button>
                         </form>
                     @endif
                 </div>

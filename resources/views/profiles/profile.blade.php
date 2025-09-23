@@ -1,17 +1,38 @@
 <x-login-layout>
     <div class="p-4">
-        <h2 class="text-xl font-bold mb-4">{{ $user->username }} のプロフィール</h2>
-
-        <!-- アイコン -->
-        <img src="{{ asset('images/' . ($user->icon_image ?? 'icon1.png')) }}"
-             alt="{{ $user->username }}のアイコン"
-             class="rounded-full mb-4"
-             style="width:80px; height:80px;">
-
-        <!-- プロフィール文 -->
-        @if(!empty($user->bio))
-            <p class="mb-6">{{ $user->bio }}</p>
-        @endif
+        <!-- プロフィール情報 -->
+        <div class="flex items-center mb-6">
+            <img src="{{ asset('images/' . ($user->icon_image ?? 'icon1.png')) }}"
+                 alt="{{ $user->username }}のアイコン"
+                 class="rounded-full mr-4"
+                 style="width:80px; height:80px;">
+            <div>
+                <h2 class="text-xl font-bold">{{ $user->username }}</h2>
+                <p class="text-gray-600">{{ $user->bio ?? '自己紹介はまだありません。' }}</p>
+                <!-- フォロー/フォロー解除ボタン -->
+                @if(Auth::id() !== $user->id)
+                    @if(Auth::user()->followings->contains($user->id))
+                        <!-- フォロー解除 -->
+                        <form action="{{ route('unfollow', $user->id) }}" method="POST" class="inline">
+                            @csrf
+                            <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">
+                                フォロー解除
+                            </button>
+                        </form>
+                    @else
+                        <!-- フォローする -->
+                        <form action="{{ route('follow', $user->id) }}" method="POST" class="inline">
+                            @csrf
+                            <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
+                            <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">
+                                フォローする
+                            </button>
+                        </form>
+                    @endif
+                @endif
+            </div>
+        </div>
 
         <!-- 投稿一覧 -->
         <h3 class="text-lg font-semibold mb-3">投稿一覧</h3>

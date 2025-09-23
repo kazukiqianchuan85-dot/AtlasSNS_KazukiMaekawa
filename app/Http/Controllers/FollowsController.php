@@ -42,20 +42,20 @@ class FollowsController extends Controller
     }
 
     // フォローする
-    public function store($id)
+    public function store(Request $request, $id)
     {
         $user = User::findOrFail($id);
         Auth::user()->followings()->attach($user->id);
 
-        return redirect()->route('user.search')->withInput(); // 検索画面に戻る
+        return redirect($request->input('redirect_to', route('profile.show', $id))); // その場で更新
     }
 
     // フォロー解除
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
         Auth::user()->followings()->detach($user->id);
 
-        return redirect()->route('user.search')->withInput(); // 検索画面に戻る
+        return redirect($request->input('redirect_to', route('profile.show', $id))); // その場で更新
     }
 }
