@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
     // プロフィール編集ページ（自分用）
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile.edit');
 
+    // プロフィール更新処理
+    Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
     // プロフィール表示ページ（他人用）
     Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 

@@ -3,7 +3,7 @@
 
             <div class="nav-menu">
                 <div class="user-info">
-                    <p>〇〇さん</p>
+                    <p>{{ Auth::user()->username }}さん</p>
                     <button class="accordion-header">
                         <span class="arrow">▼</span>
                     </button>
