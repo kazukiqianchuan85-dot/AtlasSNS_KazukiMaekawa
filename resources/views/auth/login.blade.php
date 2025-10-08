@@ -1,44 +1,31 @@
 <x-logout-layout>
-    <!-- ログインボックス -->
-    <div class="bg-black/30 backdrop-blur-md p-8 rounded-lg shadow-lg w-full max-w-sm text-center mx-auto">
-        <h2 class="text-white text-xl mb-6 font-semibold">AtlasSNSへようこそ</h2>
+  <div class="app-wrapper">
+    <div>
 
-        <form action="{{ route('login') }}" method="POST" class="space-y-4 text-left">
-            @csrf
-            <div>
-                <label for="email" class="text-white block mb-1 text-sm">メールアドレス</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required
-                >
-            </div>
-            <div>
-                <label for="password" class="text-white block mb-1 text-sm">パスワード</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required
-                >
-            </div>
-            <div class="text-right">
-                <button
-                    type="submit"
-                    class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition"
-                >
-                    ログイン
-                </button>
-            </div>
-        </form>
+      <div class="app-box">
+            <div class="app-title"><p>AtlasSNSへようこそ</p></div>
+        {!! Form::open(['url' => 'login', 'method' => 'post']) !!}
 
-        <div class="mt-4">
-            <a href="{{ route('register') }}" class="text-white underline text-sm">
-                新規ユーザーの方はこちら
-            </a>
-        </div>
+          {{ Form::label('メールアドレス', null, ['class' => 'app-label']) }}
+          {{ Form::email('email', null, ['class' => 'app-input']) }}
+          @error('email')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
+
+          {{ Form::label('パスワード', null, ['class' => 'app-label']) }}
+          {{ Form::password('password', ['class' => 'app-input']) }}
+          @error('password')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
+
+          {{ Form::submit('ログイン', ['class' => 'app-btn']) }}
+
+        {!! Form::close() !!}
+
+        <p class="app-link">
+          <a href="{{ url('register') }}">新規ユーザー登録はこちら</a>
+        </p>
+      </div>
     </div>
+  </div>
 </x-logout-layout>

@@ -1,45 +1,43 @@
 <x-logout-layout>
-    <style>
-        .error {
-            color: red;
-            font-size: 14px;
-            margin: 4px 0 10px;
-        }
-    </style>
-    <!-- 適切なURLを入力してください -->
-{!! Form::open(['url' => 'register', 'method' => 'post']) !!}
+  <div class="app-wrapper">
+    <div>
 
-<h2>新規ユーザー登録</h2>
+      <div class="app-box">
+            <div class="app-title"><p>新規ユーザー登録</p></div>
+        {!! Form::open(['url' => 'register', 'method' => 'post']) !!}
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
-@error('username')
-    <div class="error">{{ $message }}</div>
-@enderror
+          {{ Form::label('ユーザー名', null, ['class' => 'app-label']) }}
+          {{ Form::text('username', null, ['class' => 'app-input']) }}
+          @error('username')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
 
-{{ Form::label('メールアドレス') }}
-{{ Form::email('email',null,['class' => 'input']) }}
-@error('email')
-    <div class="error">{{ $message }}</div>
-@enderror
+          {{ Form::label('メールアドレス', null, ['class' => 'app-label']) }}
+          {{ Form::email('email', null, ['class' => 'app-input']) }}
+          @error('email')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
 
-{{ Form::label('パスワード') }}
-{{ Form::password('password',null,['class' => 'input']) }}
-@error('password')
-    <div class="error">{{ $message }}</div>
-@enderror
+          {{ Form::label('パスワード', null, ['class' => 'app-label']) }}
+          {{ Form::password('password', ['class' => 'app-input']) }}
+          @error('password')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
 
-{{ Form::label('パスワード確認') }}
-{{ Form::password('password_confirmation',null,['class' => 'input']) }}
-@error('password_confirmation')
-    <div class="error">{{ $message }}</div>
-@enderror
+          {{ Form::label('パスワード確認', null, ['class' => 'app-label']) }}
+          {{ Form::password('password_confirmation', ['class' => 'app-input']) }}
+          @error('password_confirmation')
+            <div class="app-error">{{ $message }}</div>
+          @enderror
 
-{{ Form::submit('登録') }}
+          {{ Form::submit('新規登録', ['class' => 'app-btn float-right']) }}
 
-<p><a href="login">ログイン画面へ戻る</a></p>
+        {!! Form::close() !!}
 
-{!! Form::close() !!}
-
-
+        <p class="app-link">
+          <a href="{{ url('login') }}">ログイン画面へ戻る</a>
+        </p>
+      </div>
+    </div>
+  </div>
 </x-logout-layout>

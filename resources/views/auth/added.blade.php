@@ -1,10 +1,16 @@
 <x-logout-layout>
-  <div id="clear">
-    <p>{{ $username }} さん</p>
-    <p>ようこそ！AtlasSNSへ！</p>
-    <p>ユーザー登録が完了しました。</p>
-    <p>早速ログインをしてみましょう。</p>
+  <div class="app-wrapper">
+    <div>
 
-    <p class="btn"><a href="login">ログイン画面へ</a></p>
+      <div class="app-box">
+        <p class="auth-username text-2xl font-bold">{{ $username }} さん</p>
+        <p class="text-xl font-bold mt-1">ようこそ！AtlasSNSへ！</p>
+        <p class="mt-2">ユーザー登録が完了しました。<br>早速ログインをしてみましょう！</p>
+
+        <div class="mt-4">
+          <a href="{{ url('login') }}" class="app-btn">ログイン画面へ</a>
+        </div>
+      </div>
+    </div>
   </div>
 </x-logout-layout>
