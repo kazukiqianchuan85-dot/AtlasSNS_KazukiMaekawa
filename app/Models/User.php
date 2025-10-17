@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    public function getIconPathAttribute()
+    {
+        return asset('images/' . $this->icon_image);
+    }
 }

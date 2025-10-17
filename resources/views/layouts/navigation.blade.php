@@ -7,11 +7,14 @@
                     <button class="accordion-header">
                         <span class="arrow">▼</span>
                     </button>
+                    <img src="{{ Auth::user()->icon_path }}"
+                        alt="ユーザーアイコン"
+                        class="user-icon">
                 </div>
 
                 <div class="accordion-content">
                     <ul>
-                        <li><a href="{{ url('/top') }}">ホーム</a></li>
+                        <li><a href="{{ url('/top') }}">HOME</a></li>
                         <li><a href="{{ url('/profile') }}">プロフィール編集</a></li>
                         <li><a href="{{ url('/logout') }}">ログアウト</a></li>
                     </ul>

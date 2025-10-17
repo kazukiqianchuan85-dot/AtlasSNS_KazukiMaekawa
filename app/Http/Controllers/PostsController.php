@@ -18,7 +18,10 @@ class PostsController extends Controller
         $visibleUserIds = array_merge([$user->id], $followIds);
 
         // 投稿を新しい順で取得（ユーザー情報も一緒に）
-        $posts = Post::with('user')->latest()->get();
+        $posts = Post::with('user')
+            ->whereIn('user_id', $visibleUserIds)
+            ->latest()
+            ->get();
 
         return view('posts.index', compact('posts'));
     }

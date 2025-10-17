@@ -2,7 +2,10 @@
 
 html {}
 
-body {}
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+    color: #333;
+}
 
 /* header */
 header {
@@ -34,11 +37,21 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-right: 15rem;
+}
+
+.user-info p {
+    margin: 0;
+    color: #fff;
 }
 
 .accordion-header {
     background: none;
     border: none;
+    color: #fff;
     cursor: pointer;
     font-size: 18px;
     padding: 5px;
@@ -54,21 +67,559 @@ header {
 }
 
 .accordion-content {
+    position: absolute;
+    top: 100%;
+    transform: translateX(-100px);
+    width: 120%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.3s ease;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-top: 5px;
+    border: none;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 0;
 }
 
 .accordion-content ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 .accordion-content li {
-    padding: 10px 20px;
+    padding: 0;
+}
+
+.accordion-content li a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* ホバー時の反転効果 */
+.accordion-content li a:hover {
+    background-color: #003366;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ==========================
+   モーダルの見た目調整
+   ========================== */
+#edit-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+#edit-modal.active,
+#delete-modal.active {
+    display: flex;
+}
+
+/* 編集モーダル全体 */
+#edit-modal .modal-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    width: 50rem;
+    /* 横幅を広く */
+    max-width: 90%;
+    position: relative;
+    text-align: center;
+    /* アイコンを中央に配置するため */
+}
+
+/* 削除モーダルは従来のサイズでもOKなら分けておく */
+#delete-modal .modal-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    width: 24rem;
+    position: relative;
+}
+
+/* 編集モーダル本体 */
+#edit-modal .modal-inner {
+    background: white;
+    width: 800px;
+    /* 横長に */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 白い大きい枠（テキストエリアを囲む部分） */
+#edit-modal .textarea-wrapper {
+    border: 2px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #fff;
+    margin-bottom: 1.5rem;
+}
+
+/* テキストエリア本体 */
+#edit-modal textarea {
+    width: 100%;
+    height: 200px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.6;
+    background: transparent;
+}
+
+/* 更新アイコン */
+#edit-submit-icon {
+    display: block;
+    margin: 0 auto;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+#edit-submit-icon:hover {
+    opacity: 0.8;
+}
+
+/* ===== 削除モーダルは “上から・背景暗転なし” ===== */
+#delete-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 高さで中央寄せされないように auto */
+    height: auto;
+    /* flex row 中央揃え、縦は上（flex-start） */
+    justify-content: center;
+    align-items: flex-start;
+    background: transparent;
+    /* 背景を暗くしない */
+    padding-top: 12px;
+    /* 画面最上部から少し余白 */
+    z-index: 1000;
+    animation: slideDown 0.4s ease forwards;
+    pointer-events: auto;
+}
+
+/* 表示切替（JSで .flex/.hidden を付け外ししている想定） */
+#edit-modal.flex,
+#delete-modal.flex {
+    display: flex !important;
+}
+
+#edit-modal.hidden,
+#delete-modal.hidden {
+    display: none !important;
+}
+
+/* ボックスの見た目 */
+.delete-box {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 600px;
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    pointer-events: all;
+}
+
+/* ===== ボタンエリア（右寄せ） ===== */
+.delete-box .flex {
+    display: flex;
+    justify-content: flex-end;
+    /* 右寄せ */
+    gap: 1rem;
+}
+
+/* ===== スライドダウンアニメーション ===== */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ボタン共通 ===== */
+#delete-modal button {
+    font-size: 1.1rem;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* キャンセルボタン（グレー） */
+#cancel-delete {
+    background: #fff;
+    border: 1px solid #999;
+    color: #333;
+}
+
+#cancel-delete:hover {
+    background: #f2f2f2;
+}
+
+/* OKボタン（青） */
+#confirm-delete {
+    background: #186AC9;
+    color: #fff;
+    border: none;
+}
+
+#confirm-delete:hover {
+    background: #1458a7;
+}
+
+/* モーダル中は背景スクロール禁止 */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ==========================
+   ナビゲーション（ヘッダー）の余白・位置
+   ========================== */
+#head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #186AC9;
+    border-bottom: 1px solid #ddd;
+}
+
+#head h1 img {
+    height: 40px;
+}
+
+/* ================================
+   投稿一覧
+================================ */
+#post-list {
+    margin-top: 1.5rem;
+}
+
+/* 投稿カード全体 */
+.post-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 24px 28px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 投稿上部（ユーザー名＋日付） */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+/* 左側（アイコン＋名前） */
+.post-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 200px;
+}
+
+/* ユーザーアイコン */
+.post-user-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ユーザー情報（名前＋本文） */
+.post-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 投稿者名 */
+.post-user-name {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* 投稿日時（右上） */
+.post-date {
+    color: #777;
+    font-size: 2rem;
+}
+
+/* 投稿本文 */
+.post-content {
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 4px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    margin-left: 50px;
+    margin: 10px 0 0 300px;
+}
+
+/* 編集・削除ボタン（右下） */
+.post-actions {
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+    display: flex;
+    gap: 14px;
+}
+
+/* 編集アイコン（ホバー時に色反転） */
+.post-actions .edit-btn img {
+    width: 48x;
+    height: 48px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.post-actions .edit-btn img:hover {
+    content: url("/images/edit_h.png");
+    opacity: 0.9;
+}
+
+/* 削除アイコン（ホバー時に色反転） */
+.post-actions .delete-btn img {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.post-actions .delete-btn img:hover {
+    content: url("/images/trash-h.png");
+    opacity: 0.9;
+}
+
+/* Laravel Breeze/Tailwindのhidden・flex対応（JSでclass切り替えしてる部分） */
+#edit-modal.hidden,
+#delete-modal.hidden {
+    display: none !important;
+}
+
+#edit-modal.flex,
+#delete-modal.flex {
+    display: flex !important;
+}
+
+/* ================================
+   サイドバー全体
+================================ */
+#side-bar {
+    flex: 0 0 19%;
+    border-left: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 2rem;
+}
+
+/* ================================
+   サイドバー内のカード（フォロー・検索）
+================================ */
+/* #side-bar #confirm,
+#side-bar .search-box {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+} */
+
+/* ユーザー名部分 */
+#side-bar #confirm>p:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+/* フォロー・フォロワー数行 */
+#side-bar #confirm>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    padding-right: 25rem;
+    /* ← 左右に余白追加して右端に張り付きすぎないように */
+}
+
+#side-bar #confirm {
+    border-bottom: 3px solid #ccc;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ================================
+   ボタン共通
+================================ */
+#side-bar .btn {
+    margin-top: 0.5rem;
+}
+
+/* フォロー/フォロワーリストボタンは右寄せ */
+#side-bar #confirm .btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#side-bar .btn a {
+    background-color: #186AC9;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+}
+
+#side-bar .btn a:hover {
+    background-color: #1458a7;
+}
+
+/* ユーザー検索ボタンだけ中央寄せ */
+#side-bar .search-box .btn {
+    display: flex;
+    justify-content: center;
+}
+
+/* ================================
+   ユーザーアイコン
+================================ */
+#head .user-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ==============================
+   投稿フォーム
+============================== */
+#post-form {
+    margin-bottom: 1rem;
+}
+
+/* 投稿フォーム内の入力欄 */
+#post-form input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.post-box {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 24px 28px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 160px;
+}
+
+/* ユーザーアイコン */
+.post-icon {
+    margin-right: 20px;
+    /* ← テキストエリアとの間隔 */
+    margin-left: 100px;
+    /* ← 左の余白 */
+    flex-shrink: 0;
+}
+
+.post-icon img {
+    width: 70px !important;
+    /* ← 強制的に大きく */
+    height: 70px !important;
+    border-radius: 50%;
+}
+
+/* テキストエリア */
+.post-input {
+    flex: 1;
+    border: none;
+    resize: none;
+    font-size: 20px;
+    line-height: 1.6;
+    padding: 14px;
+    outline: none;
+    color: #333;
+    background: transparent;
+    min-height: 120px;
+}
+
+.post-input::placeholder {
+    color: #aaa;
+    font-size: 20px;
+}
+
+/* 送信ボタン */
+.post-send-btn {
+    position: absolute;
+    bottom: 36px;
+    /* ← 縦位置調整 */
+    right: 200px;
+    /* ← 右余白を広く */
+    background: #186AC9;
+    border: none;
+    padding: 10px !important;
+    /* ← ボタン自体を少し大きく */
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-send-btn img {
+    width: 50px !important;
+    /* ← アイコンをさらに大きく */
+    height: 50px !important;
+}
+
+.post-send-btn:hover {
+    background: #1458a7;
 }
