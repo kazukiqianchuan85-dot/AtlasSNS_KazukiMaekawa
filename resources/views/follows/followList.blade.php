@@ -1,42 +1,37 @@
 <x-login-layout>
-    <div class="p-4">
-        <h2 class="text-xl font-bold mb-4">フォローリスト</h2>
+    <div id="follow-list" class="p-4">
+        <!-- タイトル＋アイコン横並び -->
+        <div class="follow-header">
+            <h2 class="page-title">フォローリスト</h2>
 
-        <!-- フォロー中ユーザーのアイコン一覧 -->
-        <div class="flex flex-wrap gap-3 mb-6">
-            @foreach($followings as $follow)
-                @php
-                // ユーザーごとに 1〜7 の範囲でアイコンを固定
-                $iconNumber = ($follow->id % 7) + 1;
-                @endphp
-                <a href="{{ route('profile.show', $follow->id) }}">
-                    <img src="{{ asset('images/icon' . $iconNumber . '.png') }}"
-                         alt="{{ $follow->username }}のアイコン"
-                         class="rounded-full border"
-                         style="width:50px; height:50px;">
-                </a>
-            @endforeach
+            <div class="follow-icons">
+                @foreach($followings as $follow)
+                    <a href="{{ route('profile.show', $follow->id) }}" class="follow-icon-link">
+                        <img src="{{ asset('images/' . $follow->icon_image) }}"
+                             alt="{{ $follow->username }}のアイコン"
+                             class="follow-icon-img">
+                    </a>
+                @endforeach
+            </div>
         </div>
 
         <!-- フォロー中ユーザーの投稿一覧 -->
-        <div>
+        <div id="post-list">
             @forelse($posts as $post)
-                @php
-                    $iconNumber = ($post->user->id % 7) + 1;
-                @endphp
-                <div class="border-b py-3">
-                    <div class="flex items-center mb-1">
-                        <img src="{{ asset('images/icon' . $iconNumber . '.png') }}"
-                             alt="ユーザーアイコン"
-                             class="rounded-full mr-2"
-                             style="width:40px; height:40px;">
-                        <span class="font-bold">{{ $post->user->username }}</span>
-                        <span class="text-gray-500 text-sm ml-4">{{ $post->created_at }}</span>
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <img src="{{ asset('images/' . $post->user->icon_image) }}"
+                                 alt="ユーザーアイコン"
+                                 class="post-user-icon">
+                            <p class="post-user-name">{{ $post->user->username }}</p>
+                        </div>
+                        <small class="post-date">{{ $post->created_at->format('Y-m-d H:i') }}</small>
                     </div>
-                    <p>{{ $post->post }}</p>
+                    <p class="post-content">{{ $post->post }}</p>
                 </div>
             @empty
-                <p class="text-gray-500">フォロー中のユーザーの投稿はまだありません。</p>
+                <p class="no-follow-posts">フォロー中のユーザーの投稿はまだありません。</p>
             @endforelse
         </div>
     </div>

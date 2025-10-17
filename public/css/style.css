@@ -319,8 +319,9 @@ body.modal-open {
 /* ================================
    投稿一覧
 ================================ */
+/* 投稿一覧の上にグレー区切り線を表示 */
 #post-list {
-    margin-top: 1.5rem;
+    border-top: 10px solid #dcdcdc;
 }
 
 /* 投稿カード全体 */
@@ -536,10 +537,6 @@ body.modal-open {
 /* ==============================
    投稿フォーム
 ============================== */
-#post-form {
-    margin-bottom: 1rem;
-}
-
 /* 投稿フォーム内の入力欄 */
 #post-form input[type="text"] {
     border: 1px solid #ccc;
@@ -622,4 +619,109 @@ body.modal-open {
 
 .post-send-btn:hover {
     background: #1458a7;
+}
+
+/* ================================
+   フォローリストページ専用
+================================ */
+#follow-list .page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* ================================
+   フォローリストページタイトル行
+================================ */
+.follow-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    /* タイトルとアイコンの間 */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* タイトル */
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    /* 折り返さない */
+}
+
+/* アイコン一覧（タイトル右） */
+.follow-icons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* アイコン個別 */
+.follow-icon-link {
+    display: inline-block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.follow-icon-link:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.follow-icon-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================
+   フォロワーリストページ専用
+================================ */
+
+/* タイトル＋アイコンを横並びに配置 */
+.follower-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* タイトル */
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* アイコン一覧（タイトル右） */
+.follower-icons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* 各アイコン */
+.follower-icon-link {
+    display: inline-block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.follower-icon-link:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* 画像サイズ統一 */
+.follower-icon-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
