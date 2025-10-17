@@ -725,3 +725,164 @@ body.modal-open {
     border: 2px solid #fff;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
+
+/* ================================
+   ユーザー検索ページ
+================================ */
+/* ページ全体 */
+#user-search {
+    background-color: #f7f9fb;
+}
+
+/* ================================
+   検索バーを広く & 中央に配置
+================================ */
+.search-header {
+    display: flex;
+    padding-left: 100px;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0 3rem;
+    /* 上下の余白を広めに */
+}
+
+/* 検索フォーム全体を幅広に */
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    height: 100px;
+}
+
+/* 入力欄：黒枠＋白背景 */
+.search-input {
+    width: 400px;
+    /* ← お好みで調整可能（例：500px） */
+    padding: 0.75rem 1rem;
+    border: 2px solid #333;
+    /* ← 黒枠 */
+    border-radius: 4px;
+    font-size: 1.6rem;
+    outline: none;
+    background-color: #fff;
+}
+
+/* 検索ボタン（入力欄の外・右側） */
+.search-btn {
+    background: #186AC9;
+    border: none;
+    border-radius: 4px;
+    margin-left: 8px;
+    /* ← 入力欄との隙間 */
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+    background: #1458a7;
+}
+
+.search-icon {
+    width: 26px;
+    height: 26px;
+}
+
+/* 検索ワード表示 */
+.search-keyword {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+/* ================================
+   検索結果リストの整列
+================================ */
+
+/* リスト全体 */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 10px solid #dcdcdc;
+}
+
+/* 各ユーザー行 */
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* 横幅いっぱい */
+    border-bottom: 1px solid #ddd;
+    /* 各行の区切り線 */
+    padding: 1.2rem 3rem;
+    /* 左右の余白を広めに */
+    background: #fff;
+    /* 背景は白 */
+    transition: background-color 0.2s ease;
+}
+
+.user-card:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* アイコンと名前をもう少し中央寄せに */
+.user-info {
+    display: flex;
+    padding-left: 400px;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+    /* ← 少し右にずらして中央感UP */
+}
+
+/* アイコン */
+.user-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+/* ユーザー名 */
+.user-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ボタンの位置も中央寄せ寄りに */
+.user-action {
+    padding-right: 800px;
+    /* ← 右側に少し余白を取って整列 */
+}
+
+/* フォローボタン */
+.btn-follow,
+.btn-unfollow {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-follow {
+    background: #186AC9;
+}
+
+.btn-follow:hover {
+    opacity: 0.8;
+}
+
+.btn-unfollow {
+    background: #e74c3c;
+}
+
+.btn-unfollow:hover {
+    opacity: 0.8;
+}
