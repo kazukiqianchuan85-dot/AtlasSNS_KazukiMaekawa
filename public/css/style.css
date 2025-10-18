@@ -886,3 +886,184 @@ body.modal-open {
 .btn-unfollow:hover {
     opacity: 0.8;
 }
+
+/* ================================
+   プロフィールページ（他人用）
+================================ */
+
+/* 全体カード */
+.profile-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 2rem 3rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダー部分（アイコン＋名前＋ボタン） */
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* アイコン */
+.profile-icon img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #eee;
+    margin-left: 10rem;
+}
+
+/* 中央：ユーザー名・自己紹介 */
+.profile-center {
+    flex: 1;
+    margin-left: 3rem;
+}
+
+.profile-row {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    font-size: 2rem;
+    color: #666;
+}
+
+.profile-label {
+    font-weight: bold;
+    color: #333;
+    width: 120px;
+    font-size: 1.8rem;
+    margin-right: 2rem;
+    /* ← ラベルの右に余白を追加 */
+}
+
+/* フォローボタン */
+.profile-follow form {
+    display: inline-block;
+    margin-right: 30rem;
+}
+
+.btn-follow,
+.btn-unfollow {
+    font-size: 2rem;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-follow {
+    background-color: #186AC9;
+}
+
+.btn-follow:hover {
+    background-color: #1458a7;
+}
+
+.btn-unfollow {
+    background-color: #e74c3c;
+}
+
+.btn-unfollow:hover {
+    background-color: #c0392b;
+}
+
+.no-posts {
+    color: #777;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+}
+
+/* ================================
+   自分のプロフィール編集ページ
+================================ */
+.profile-edit {
+    display: flex;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3rem 4rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    gap: 4rem;
+}
+
+/* 左：アイコン */
+.profile-edit-icon img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 500px;
+}
+
+/* 右：フォーム部分 */
+.profile-edit-form {
+    flex: 1;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.form-row label {
+    width: 160px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"],
+.form-row input[type="file"],
+.form-row textarea {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    font-size: 1.6rem;
+    color: #333;
+    background-color: #f9f9f9;
+    margin-right: 800px;
+}
+
+/* パスワード入力は伏字 */
+.form-row input[type="password"] {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+}
+
+/* テキストエリア（自己紹介） */
+.form-row textarea {
+    resize: none;
+}
+
+/* 更新ボタン */
+.form-actions {
+    text-align: center;
+    margin-right: 1000px;
+    margin-top: 2rem;
+}
+
+.btn-update {
+    background: #e74c3c;
+    color: #fff;
+    font-size: 1.6rem;
+    padding: 0.8rem 2.4rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-update:hover {
+    background: #c0392b;
+}
