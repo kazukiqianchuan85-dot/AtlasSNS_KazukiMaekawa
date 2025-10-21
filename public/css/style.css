@@ -38,7 +38,7 @@ header {
     align-items: center;
     gap: 8px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     padding-right: 15rem;
 }
@@ -69,8 +69,8 @@ header {
 .accordion-content {
     position: absolute;
     top: 100%;
-    transform: translateX(-100px);
-    width: 120%;
+    transform: translateX(352px);
+    width: 60%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     max-height: 0;
@@ -80,6 +80,7 @@ header {
     border-radius: 0;
     margin-top: 0;
     padding: 0;
+    z-index: 9999;
 }
 
 .accordion-content ul {
@@ -94,8 +95,10 @@ header {
 }
 
 .accordion-content li a {
-    display: block;
-    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0px;
     font-size: 2rem;
     text-align: center;
     color: #333;
@@ -137,14 +140,12 @@ header {
     padding: 1.5rem;
     border-radius: 0.5rem;
     width: 50rem;
-    /* 横幅を広く */
     max-width: 90%;
     position: relative;
     text-align: center;
-    /* アイコンを中央に配置するため */
 }
 
-/* 削除モーダルは従来のサイズでもOKなら分けておく */
+/* 削除モーダル全体*/
 #delete-modal .modal-content {
     background: white;
     padding: 1.5rem;
@@ -153,11 +154,10 @@ header {
     position: relative;
 }
 
-/* 編集モーダル本体 */
+/* 編集モーダル */
 #edit-modal .modal-inner {
     background: white;
     width: 800px;
-    /* 横長に */
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -175,11 +175,11 @@ header {
 /* テキストエリア本体 */
 #edit-modal textarea {
     width: 100%;
-    height: 200px;
+    height: 300px;
     border: none;
     resize: none;
     outline: none;
-    font-size: 14px;
+    font-size: 24px;
     line-height: 1.6;
     background: transparent;
 }
@@ -188,8 +188,8 @@ header {
 #edit-submit-icon {
     display: block;
     margin: 0 auto;
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
     transition: opacity 0.2s ease;
 }
@@ -198,22 +198,18 @@ header {
     opacity: 0.8;
 }
 
-/* ===== 削除モーダルは “上から・背景暗転なし” ===== */
+/* ===== 削除モーダル ===== */
 #delete-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    /* 高さで中央寄せされないように auto */
     height: auto;
-    /* flex row 中央揃え、縦は上（flex-start） */
     justify-content: center;
     align-items: flex-start;
     background: transparent;
-    /* 背景を暗くしない */
     padding-top: 12px;
-    /* 画面最上部から少し余白 */
     z-index: 1000;
     animation: slideDown 0.4s ease forwards;
     pointer-events: auto;
@@ -222,12 +218,12 @@ header {
 /* 表示切替（JSで .flex/.hidden を付け外ししている想定） */
 #edit-modal.flex,
 #delete-modal.flex {
-    display: flex !important;
+    display: flex;
 }
 
 #edit-modal.hidden,
 #delete-modal.hidden {
-    display: none !important;
+    display: none;
 }
 
 /* ボックスの見た目 */
@@ -247,7 +243,6 @@ header {
 .delete-box .flex {
     display: flex;
     justify-content: flex-end;
-    /* 右寄せ */
     gap: 1rem;
 }
 
@@ -295,7 +290,7 @@ header {
     background: #1458a7;
 }
 
-/* モーダル中は背景スクロール禁止 */
+/* モーダル中は背景スクロール禁止にする */
 body.modal-open {
     overflow: hidden;
 }
@@ -313,7 +308,9 @@ body.modal-open {
 }
 
 #head h1 img {
-    height: 40px;
+    height: 70px;
+    margin: 20px 0 20px 40px;
+    width: auto;
 }
 
 /* ================================
@@ -428,12 +425,12 @@ body.modal-open {
 /* Laravel Breeze/Tailwindのhidden・flex対応（JSでclass切り替えしてる部分） */
 #edit-modal.hidden,
 #delete-modal.hidden {
-    display: none !important;
+    display: none;
 }
 
 #edit-modal.flex,
 #delete-modal.flex {
-    display: flex !important;
+    display: flex;
 }
 
 /* ================================
@@ -449,18 +446,6 @@ body.modal-open {
     gap: 1.5rem;
     font-size: 2rem;
 }
-
-/* ================================
-   サイドバー内のカード（フォロー・検索）
-================================ */
-/* #side-bar #confirm,
-#side-bar .search-box {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-} */
 
 /* ユーザー名部分 */
 #side-bar #confirm>p:first-child {
@@ -478,7 +463,6 @@ body.modal-open {
     font-size: 2rem;
     margin-bottom: 0.75rem;
     padding-right: 25rem;
-    /* ← 左右に余白追加して右端に張り付きすぎないように */
 }
 
 #side-bar #confirm {
@@ -561,16 +545,13 @@ body.modal-open {
 /* ユーザーアイコン */
 .post-icon {
     margin-right: 20px;
-    /* ← テキストエリアとの間隔 */
     margin-left: 100px;
-    /* ← 左の余白 */
     flex-shrink: 0;
 }
 
 .post-icon img {
-    width: 70px !important;
-    /* ← 強制的に大きく */
-    height: 70px !important;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
 }
 
@@ -597,13 +578,10 @@ body.modal-open {
 .post-send-btn {
     position: absolute;
     bottom: 36px;
-    /* ← 縦位置調整 */
     right: 200px;
-    /* ← 右余白を広く */
     background: #186AC9;
     border: none;
-    padding: 10px !important;
-    /* ← ボタン自体を少し大きく */
+    padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -612,9 +590,8 @@ body.modal-open {
 }
 
 .post-send-btn img {
-    width: 50px !important;
-    /* ← アイコンをさらに大きく */
-    height: 50px !important;
+    width: 50px;
+    height: 50px;
 }
 
 .post-send-btn:hover {
@@ -638,9 +615,9 @@ body.modal-open {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    /* タイトルとアイコンの間 */
     margin-top: 2rem;
     margin-bottom: 2rem;
+    margin-left: 8%;
 }
 
 /* タイトル */
@@ -649,7 +626,6 @@ body.modal-open {
     font-weight: bold;
     color: #333;
     white-space: nowrap;
-    /* 折り返さない */
 }
 
 /* アイコン一覧（タイトル右） */
@@ -689,6 +665,7 @@ body.modal-open {
     gap: 1.5rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    margin-left: 8%;
 }
 
 /* タイトル */
@@ -743,7 +720,6 @@ body.modal-open {
     align-items: center;
     gap: 2rem;
     margin: 2rem 0 3rem;
-    /* 上下の余白を広めに */
 }
 
 /* 検索フォーム全体を幅広に */
@@ -757,10 +733,8 @@ body.modal-open {
 /* 入力欄：黒枠＋白背景 */
 .search-input {
     width: 400px;
-    /* ← お好みで調整可能（例：500px） */
     padding: 0.75rem 1rem;
     border: 2px solid #333;
-    /* ← 黒枠 */
     border-radius: 4px;
     font-size: 1.6rem;
     outline: none;
@@ -773,7 +747,6 @@ body.modal-open {
     border: none;
     border-radius: 4px;
     margin-left: 8px;
-    /* ← 入力欄との隙間 */
     padding: 0.5rem 0.8rem;
     display: flex;
     align-items: center;
@@ -800,7 +773,6 @@ body.modal-open {
 /* ================================
    検索結果リストの整列
 ================================ */
-
 /* リスト全体 */
 .user-list {
     display: flex;
@@ -815,13 +787,9 @@ body.modal-open {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* 横幅いっぱい */
     border-bottom: 1px solid #ddd;
-    /* 各行の区切り線 */
     padding: 1.2rem 3rem;
-    /* 左右の余白を広めに */
     background: #fff;
-    /* 背景は白 */
     transition: background-color 0.2s ease;
 }
 
@@ -836,7 +804,6 @@ body.modal-open {
     align-items: center;
     gap: 1rem;
     margin-left: 2rem;
-    /* ← 少し右にずらして中央感UP */
 }
 
 /* アイコン */
@@ -856,7 +823,6 @@ body.modal-open {
 /* ボタンの位置も中央寄せ寄りに */
 .user-action {
     padding-right: 800px;
-    /* ← 右側に少し余白を取って整列 */
 }
 
 /* フォローボタン */
@@ -936,7 +902,6 @@ body.modal-open {
     width: 120px;
     font-size: 1.8rem;
     margin-right: 2rem;
-    /* ← ラベルの右に余白を追加 */
 }
 
 /* フォローボタン */

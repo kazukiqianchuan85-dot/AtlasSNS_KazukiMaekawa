@@ -9,7 +9,7 @@
                 <!-- ユーザーアイコン -->
                 <div class="post-icon">
                     <img src="{{ Auth::user()->icon_path }}" alt="ユーザーアイコン"
-                        class="rounded-full" style="width:40px; height:40px;">
+                        class="rounded-full">
                 </div>
 
                 <!-- 投稿内容入力 -->
@@ -17,7 +17,7 @@
 
                 <!-- 投稿ボタン -->
                 <button type="submit" class="post-send-btn">
-                    <img src="{{ asset('images/post.png') }}" alt="投稿" style="width:24px; height:24px;">
+                    <img src="{{ asset('images/post.png') }}" alt="投稿">
                 </button>
             </div>
         </form>

@@ -21,11 +21,8 @@
             @foreach ($users as $user)
                 <div class="user-card">
                     <div class="user-info">
-                        @php
-                            $iconNumber = ($user->id % 7) + 1;
-                        @endphp
                         <a href="{{ route('profile.show', $user->id) }}">
-                            <img src="{{ asset('images/icon' . $iconNumber . '.png') }}" alt="{{ $user->username }}のアイコン" class="user-icon">
+                            <img src="{{ $user->icon_path }}" alt="{{ $user->username }}のアイコン" class="user-icon">
                         </a>
                         <span class="user-name">{{ $user->username }}</span>
                     </div>
