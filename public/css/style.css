@@ -15,16 +15,23 @@ header {
 /* main content */
 #row {
     display: flex;
-    flex-flow: row wrap;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
 #container {
-    flex: 0 0 80%;
+    flex: 0 0 79%;
+    max-width: 79%;
+    box-sizing: border-box;
 }
 
 #side-bar {
     flex: 0 0 19%;
-    border-left: 1px solid #727272;
+    max-width: 19%;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc;
+    background-color: #f9f9f9;
+    align-self: stretch;
 }
 
 /* アコーディオンメニュー */
@@ -69,8 +76,8 @@ header {
 .accordion-content {
     position: absolute;
     top: 100%;
-    transform: translateX(352px);
-    width: 60%;
+    transform: translateX(365px);
+    width: 58.3%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     max-height: 0;
@@ -387,34 +394,47 @@ body.modal-open {
     margin: 10px 0 0 300px;
 }
 
-/* 編集・削除ボタン（右下） */
 .post-actions {
     position: absolute;
-    right: 20px;
-    bottom: 16px;
+    right: 24px;
+    bottom: 20px;
     display: flex;
-    gap: 14px;
+    gap: 12px;
+    align-items: center;
 }
 
-/* 編集アイコン（ホバー時に色反転） */
-.post-actions .edit-btn img {
-    width: 48x;
-    height: 48px;
+/* ================================
+   投稿ページの編集・削除ボタン（背景と枠線を消す）
+================================ */
+.post-actions button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    outline: none;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* アイコン画像をシンプルに表示 */
+.post-actions button img {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+
+/* ホバー時に色を反転（画像切り替え） */
 .post-actions .edit-btn img:hover {
     content: url("/images/edit_h.png");
     opacity: 0.9;
-}
-
-/* 削除アイコン（ホバー時に色反転） */
-.post-actions .delete-btn img {
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .post-actions .delete-btn img:hover {
